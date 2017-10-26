@@ -1,11 +1,17 @@
 <article class="preview">
     <header>
         <h1 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
-        <div class="post-meta"><time datetime="{{ .Date.Format "02 January 2006" }}">{{ .Date.Format "02 January 2006" }}</time></div>
+        <div class="post-meta"><time datetime="{{ .Date.Format "02 January 2006" }}">{{ .Date.Format "02 January 2006" }}</time>
+            by {{ if isset .Params "author" }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}
+        </div>
     </header>
     <section class="post-excerpt">
         {{ if and (not .Description) (.Site.Params.useSummaryIfNoDescription)}}
-        <a class="excerptlink" href="{{ .Permalink }}"><p>{{ .Summary }}&hellip;</p></a>
+        <div>
+            <p>
+                {{ .Summary }}&hellip;
+            </p>
+        </div>
         {{ else }}
         <a class="excerptlink" href="{{ .Permalink }}"><p>{{ .Description | markdownify }}&hellip;</p></a>
         {{ end }}
